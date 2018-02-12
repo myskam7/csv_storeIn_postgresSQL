@@ -68,7 +68,7 @@ let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true,  i
                         csvStream.resume();
                         }).on('end', () => {
                             console.log('done reading csv file');
-                        }).on('error', () => {
+                        }).on('error', (err) => {
                             console.log(err);
                         });
                     
