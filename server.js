@@ -14,6 +14,10 @@ app.use('/', (req, res, next) => {
     })
 })
 
+app.use((error, req, res, next) => {
+    res.send(error);
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
