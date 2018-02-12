@@ -19,6 +19,7 @@
   "homepage": "https://github.com/myskam7/csv_storeIn_postgresSQL#readme",
   "dependencies": {
     "fast-csv": "^2.4.1",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "pg": "^7.4.1"
   }
 }
