@@ -4,9 +4,9 @@ const  fs = require('fs'),
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
-client.connect((err => console.log(err))
+// client.connect((err => console.log(err))
   
-);
+// );
 
 let counter = 0; 
 
