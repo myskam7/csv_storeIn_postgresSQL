@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "DATABASE_URL=postgres://myskam7:qvez21@localhost:5434/data_csvdb nodemon server.js"
+    "start:dev": "SEED=true DATABASE_URL=postgres://myskam7:qvez21@localhost:5434/data_csvdb nodemon server.js"
   },
   "repository": {
     "type": "git",

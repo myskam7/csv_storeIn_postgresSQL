@@ -36,26 +36,40 @@ let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true,  i
             let construction = record.construction;
             let point_granularity = record.point_granularity;
         
+            const seed = () => {   
+                client.query(`INSERT INTO csv_insurance (policyid, statecode, county, 
+                    point_latitude, point_longitude, line, construction) 
+                    VALUES ($1, $2, $3, $4, $5, $6, $7);`,[policyID, statecode, county, point_latitude, point_longitude, line, construction], (result, err) => {
+                            if(err) {
+                                console.log(err);
+                            }
+                            console.log(result);
+                        });
+                        ++counter;
 
-        client.query(`INSERT INTO csv_insurance (policyid, statecode, county, 
-             point_latitude, point_longitude, line, construction) 
-             VALUES ($1, $2, $3, $4, $5, $6, $7);`,[policyID, statecode, county, point_latitude, point_longitude, line, construction], (result, err) => {
-                     if(err) {
-                         console.log(err);
-                     }
-                     console.log(result);
-                 });
-                 ++counter;
+                        };
+                    }
+                        csvStream.resume();
+                        }).on('end', () => {
+                            console.log('done reading csv file');
+                        }).on('error', () => {
+                            console.log(err);
+                        });
+                    
 
+
+                const connect = () => {
+                    client.connect((err) => {
+                    if(!err){
+                        if(process.env.SEED){
+                            seed();
+                        }
+                    }
+                
+                  });
                 };
 
-                csvStream.resume();
-                }).on('end', () => {
-                    console.log('done reading csv file');
-                }).on('error', () => {
-                    console.log(err);
-                });
-
+                connect();
 
 
 const getProducts = (cb) => {
