@@ -1,0 +1,23 @@
+DROP DATABASE IF EXISTS data_csvdb;
+CREATE DATABASE data_csvdb;
+CREATE TABLE fl_insurance (
+    id SERIAL primary key,
+        policyID integer,
+        statecode  integer,
+        county  text,
+        eq_site_limit  real,
+        hu_site_limit  real,
+        fl_site_limit  real,
+        fr_site_limit  real,
+        tiv_2011  real,
+        tiv_2012  real,
+        eq_site_deductible  real,
+        hu_site_deductible  real,
+        fl_site_deductible  real,
+        fr_site_deductible  real,
+        point_latitude  double precision,
+        point_longitude  double precision,
+        line  text,
+        construction  text,
+        point_granularity integer
+);
