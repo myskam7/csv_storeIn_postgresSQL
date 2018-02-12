@@ -16,7 +16,7 @@ let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true,  i
 
 
 
-        if(counter < 1){
+        if(counter < 2){
             let policyID = record.policyID;
             let statecode = record.statecode;
             let county = record.county;
