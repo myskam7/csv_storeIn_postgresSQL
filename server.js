@@ -4,13 +4,17 @@ const  fs = require('fs'),
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
-client.connect((err)
-  .catch(err => console.log(err))
+client.connect((err => console.log(err))
+  
 );
 
-let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true })
+let counter = 0; 
+
+let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true,  ignoreEmpty: true })
     .on('data', (record) => {
         csvStream.pause();
+
+
 
         if(record){
             let policyID = record.policyID;
@@ -33,16 +37,15 @@ let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true })
             let point_granularity = record.point_granularity;
         
 
-        client.query(`INSERT INTO fl_insurance (policyID, statecode, county, eq_site_limit, hu_site_limit, fl_site_limit,
-             fr_site_limit, tiv_2011, tiv_2012, eq_site_deductible, hu_site_deductible, fl_site_deductible, fr_site_deductible, 
-             point_latitude, point_longitude, line, construction, point_granularity) 
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18`, [policyID, statecode, county, eq_site_limit,
-                 hu_site_limit, fl_site_limit, fr_site_limit, tiv_2011, tiv_2012, eq_site_deductible, hu_site_deductible, 
-                 fl_site_deductible, fr_site_deductible, point_latitude, point_longitude, line, construction, point_granularity], (err, res) => {
+        client.query(`INSERT INTO csv_insurance (policyid, statecode, county, 
+             point_latitude, point_longitude, line, construction) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7);`,[policyID, statecode, county, point_latitude, point_longitude, line, construction], (result, err) => {
                      if(err) {
                          console.log(err);
                      }
-                 })
+                     console.log(result);
+                 });
+                 ++counter;
 
                 };
 
