@@ -48,7 +48,23 @@ let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true,  i
                         ++counter;
 
                         };
+
+                        const connect = () => {
+                            client.connect((err) => {
+                            if(!err){
+                                if(process.env.SEED){
+                                    seed();
+                                }
+                            }
+                        
+                            });
+                        };
+                        connect();
                     }
+                    
+                    
+
+
                         csvStream.resume();
                         }).on('end', () => {
                             console.log('done reading csv file');
@@ -56,21 +72,10 @@ let csvStream = csv.fromPath('./csv/FL_insurance_sample.csv', {headers: true,  i
                             console.log(err);
                         });
                     
+    
+    
 
-
-                const connect = () => {
-                    client.connect((err) => {
-                    if(!err){
-                        if(process.env.SEED){
-                            seed();
-                        }
-                    }
-                
-                  });
-                };
-
-                connect();
-
+               
 
 const getProducts = (cb) => {
     
@@ -79,6 +84,8 @@ const getProducts = (cb) => {
     .catch(err => cb(err));
   
 }
+
+
 
 
 
